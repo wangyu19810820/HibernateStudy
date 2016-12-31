@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="hibernatejar"/>
 	<classpathentry kind="src" path="oraclejar"/>
 	<classpathentry kind="src" path="validate"/>
+	<classpathentry kind="src" path="mysql"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="hibernatejar/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="hibernatejar/cdi-api-1.1.jar"/>
@@ -28,5 +29,6 @@
 	<classpathentry kind="lib" path="validate/javax.el-2.2.4.jar"/>
 	<classpathentry kind="lib" path="validate/javax.el-api-2.2.4.jar"/>
 	<classpathentry kind="lib" path="validate/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="mysql/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,5 +1,6 @@
 package test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class TestUsingAnnotation {
 			User1 user = new User1();
 			user.setUsername("aa4");
 			user.setPassword("333");
-			user.setBirthday(new Date());
+			user.setBirthday(LocalDateTime.now());
 			session.beginTransaction();
 			session.save(user);
 			session.getTransaction().commit();

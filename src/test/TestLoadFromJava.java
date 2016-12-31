@@ -1,5 +1,6 @@
 package test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.hibernate.Session;
@@ -17,7 +18,7 @@ public class TestLoadFromJava {
 		User1 user = new User1();
 		user.setUsername("eee");
 		user.setPassword("666");
-		user.setBirthday(new Date());
+		user.setBirthday(LocalDateTime.now());
 
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
 		builder.applySetting("hibernate.connection.driver_class", "oracle.jdbc.OracleDriver")

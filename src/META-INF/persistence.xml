@@ -3,15 +3,15 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
         version="2.0">
     <persistence-unit name="com.gadfly1981.jpa">
-        <mapping-file>model/METAINF/orm.xml</mapping-file>
+        <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
         <class>model.User1</class>
         
         <!-- 排除非配置文件，false扫描类路径，自动加载并ORM实体类,true不自动加，必须通过配置文件加 -->
-    	<exclude-unlisted-classes>false</exclude-unlisted-classes>
+    	<exclude-unlisted-classes>true</exclude-unlisted-classes>
     	
     	
     	<!-- AUTO运行环境能用数据验证则用，CALLBACK必须用否则报错，NONE不用验证 -->
-    	<validation-mode>NONE</validation-mode>
+    	<validation-mode>AUTO</validation-mode>
 	    <properties>
 	    	<!-- none，不操作数据库DDL，create,始终创建数据库表或者其他相关对象，drop-and-create，先删后建，最后保留， drop，删除用于清理-->
 	    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
@@ -24,6 +24,35 @@
 	        <property name="hibernate.use_sql_comments" value="true" />
 	        <property name="hibernate.show_sql" value="true" /> 
 	    </properties>
+     </persistence-unit>
+        
+    <persistence-unit name="com.gadfly1981.jpa.mysql">
+        <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
+        <class>model.User1</class>
+        
+        <!-- 排除非配置文件，false扫描类路径，自动加载并ORM实体类,true不自动加，必须通过配置文件加 -->
+    	<exclude-unlisted-classes>false</exclude-unlisted-classes>
     	
-    </persistence-unit>
+     	<!-- AUTO运行环境能用数据验证则用，CALLBACK必须用否则报错，NONE不用验证 -->
+    	<validation-mode>AUTO</validation-mode>
+	    <properties>
+	    	<!-- none，不操作数据库DDL，create,始终创建数据库表或者其他相关对象，drop-and-create，先删后建，最后保留， drop，删除用于清理-->
+	    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+	   		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"></property>  
+	        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test"></property>  
+	        <property name="hibernate.connection.username" value="scott"></property>  
+	        <property name="hibernate.connection.password" value="tiger"></property>  
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"></property> 
+	        <property name="hibernate.format_sql" value="true" />
+	        <property name="hibernate.use_sql_comments" value="true" />
+	        <property name="hibernate.show_sql" value="true" />
+	        
+	        <!-- JPA主键生成方式，是否使用新的方式。比较明显的差别是AUTO旧的是自增长和序列相切换，新的是"增强序列"，SEQUENCE旧的是只用序列，新的是"增强序列" -->
+	        <!-- "增强序列"，本质上还是原生序列和最大值表格模拟相切换，能在insert之前获取主键值。总体看hibernate是强调了可移植，以及insert前获取主键值 -->
+	        <property name="hibernate.id.new_generator_mappings" value="true"/> 
+	        
+	        <!-- 类名转换成表名，通用策略 -->
+	        <property name="hibernate.physical_naming_strategy" value="tool.CENamingStrategy" />
+	    </properties>
+     </persistence-unit>
 </persistence>
