@@ -14,7 +14,7 @@
     	<validation-mode>AUTO</validation-mode>
 	    <properties>
 	    	<!-- none，不操作数据库DDL，create,始终创建数据库表或者其他相关对象，drop-and-create，先删后建，最后保留， drop，删除用于清理-->
-	    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+	    	<property name="javax.persistence.schema-generation.database.action" value="none"/>
 	   		<property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"></property>  
 	        <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>  
 	        <property name="hibernate.connection.username" value="scott"></property>  

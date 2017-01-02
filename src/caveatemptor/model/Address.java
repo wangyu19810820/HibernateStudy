@@ -16,12 +16,6 @@ public class Address {
 	
 	@Embedded
 	@NotNull
-	@AttributeOverrides(
-		@AttributeOverride(
-			name = "name",
-			column = @Column(name = "city", nullable = false)
-		)
-	)
 	protected City city;
 
 	public Address() {

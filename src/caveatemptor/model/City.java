@@ -1,15 +1,20 @@
 package caveatemptor.model;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+
+import caveatemptor.converter.ZipcodeConverter;
 
 @Embeddable
 public class City {
 
 	@NotNull
 	@Column(nullable = false, length = 6)
-	protected String zipcode;
+	@Convert(converter = ZipcodeConverter.class, 
+	 	     disableConversion = false)
+	protected Zipcode zipcode;
 	
 	@NotNull
 	@Column(nullable = false)
@@ -23,11 +28,11 @@ public class City {
 		super();
 	}
 
-	public String getZipcode() {
+	public Zipcode getZipcode() {
 		return zipcode;
 	}
 
-	public void setZipcode(String zipcode) {
+	public void setZipcode(Zipcode zipcode) {
 		this.zipcode = zipcode;
 	}
 
