@@ -53,6 +53,7 @@
 	        
 	        <!-- 类名转换成表名，通用策略 -->
 	        <property name="hibernate.physical_naming_strategy" value="tool.CENamingStrategy" />
+
 	    </properties>
      </persistence-unit>
 </persistence>

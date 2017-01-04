@@ -1,8 +1,11 @@
 package caveatemptor.model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
@@ -18,6 +21,11 @@ public class Address {
 	@NotNull
 	protected City city;
 
+	@ElementCollection
+	@CollectionTable(name = "contact")
+	@Column(name = "name", nullable = false)
+	protected Set<String> contacts = new HashSet<>();
+	
 	public Address() {
 		super();
 	}
@@ -43,9 +51,17 @@ public class Address {
 		this.city = city;
 	}
 
+	public Set<String> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Set<String> contacts) {
+		this.contacts = contacts;
+	}
+
 	@Override
 	public String toString() {
-		return "Address [street=" + street + ", city=" + city + "]";
+		return "Address [street=" + street + ", city=" + city + ", contacts=" + contacts + "]";
 	}
 
 }

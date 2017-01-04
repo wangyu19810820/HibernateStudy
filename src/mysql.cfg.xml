@@ -4,17 +4,19 @@
   
 <hibernate-configuration>  
     <session-factory>  
-        <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>  
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property>  
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>  
         <property name="hibernate.connection.username">scott</property>  
         <property name="hibernate.connection.password">tiger</property>  
-        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>  
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>  
         <property name="hibernate.show_sql">true</property>
- 		
- 		<!-- create,create-drop,update,validate -->
+        
+        <!-- create,create-drop,update,validate -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         
-        <mapping resource="model/User.hbm.xml"/>
-        <mapping class="model.User1"/>
+        <mapping class="caveatemptor.model.BillingDetails" />
+        <mapping class="caveatemptor.model.BankAccount" />
+        <mapping class="caveatemptor.model.CreditCard" />
+      
     </session-factory>  
 </hibernate-configuration>  

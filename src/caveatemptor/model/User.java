@@ -1,14 +1,19 @@
 package caveatemptor.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import caveatemptor.converter.ZipcodeConverter;
@@ -23,6 +28,7 @@ public class User implements Serializable {
 	@GeneratedValue()
 	protected Long id;
 	
+	@AttributeOverride(name = "city.name", column = @Column(name = "name"))
 	@Convert(converter = ZipcodeConverter.class, 
 			 attributeName = "city.zipcode",
 			 disableConversion = false)
@@ -35,10 +41,16 @@ public class User implements Serializable {
 		@AttributeOverride(name = "city.zipcode", column = @Column(name = "BILLING_ZIPCODE")),
 		@AttributeOverride(name = "city.name", column = @Column(name = "BILLING_CITY"))
 	})
-	@Convert(converter = ZipcodeConverter.class, 
-			 attributeName = "city.zipcode",
-			 disableConversion = false)
+//	@Convert(converter = ZipcodeConverter.class, 
+//			 attributeName = "city.zipcode",
+//			 disableConversion = false)
 	protected Address billingAddress;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	protected BillingDetails defaultBilling;
+	
+	@OneToMany(mappedBy = "user")
+	protected Set<BillingDetails>billingDetails = new HashSet<>();
 
 	public User() {
 		super();
@@ -64,8 +76,33 @@ public class User implements Serializable {
 		this.billingAddress = billingAddress;
 	}
 
+	public BillingDetails getDefaultBilling() {
+		return defaultBilling;
+	}
+
+	public void setDefaultBilling(BillingDetails defaultBilling) {
+		this.defaultBilling = defaultBilling;
+	}
+
+	public Set<BillingDetails> getBillingDetails() {
+		return billingDetails;
+	}
+
+	public void setBillingDetails(Set<BillingDetails> billingDetails) {
+		this.billingDetails = billingDetails;
+	}
+
+	public void addBillingDetails(BillingDetails bd) {
+		boolean b = this.billingDetails.add(bd);
+		if (b) {
+			bd.setUser(this);
+		}
+	}
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", homeAddress=" + homeAddress + ", billingAddress=" + billingAddress + "]";
+		return "User [id=" + id + ", homeAddress=" + homeAddress + ", billingAddress=" + billingAddress
+				+ ", defaultBilling=" + defaultBilling + "]";
 	}
+
 }
