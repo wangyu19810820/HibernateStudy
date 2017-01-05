@@ -14,27 +14,27 @@ import caveatemptor.model.Item;
 public class TestCollection {
 
 	public static void main(String[] args) {
-		testList();
+		testSortMap();
 	}
 
 	public static void testSortMap() {
 		EntityManagerFactory fac = Persistence.createEntityManagerFactory("com.gadfly1981.jpa.mysql");
 		EntityManager em = fac.createEntityManager();
 		
-//		Item item = new Item();
-//		Map<String, String> map = item.getImage5();
-//		map.put("file1.jpg", "file1");
-//		map.put("file3.jpg", "file3");
-//		map.put("file2.jpg", "file2");
-		
-//		em.getTransaction().begin();
-//		em.persist(item);
-//		em.getTransaction().commit();
+		Item item = new Item();
+		Map<String, String> map = item.getImage5();
+		map.put("file1.jpg", "file1");
+		map.put("file3.jpg", "file3");
+		map.put("file2.jpg", "file2");
 		
 		em.getTransaction().begin();
-		Item item = em.find(Item.class, 1L);
-		System.out.println(item.getImage5());
+		em.persist(item);
 		em.getTransaction().commit();
+		
+//		em.getTransaction().begin();
+//		Item item = em.find(Item.class, 1L);
+//		System.out.println(item.getImage5());
+//		em.getTransaction().commit();
 		
 		em.close();
 		fac.close();
@@ -80,7 +80,10 @@ public class TestCollection {
 //		item.getImage3().remove("file3.jpg");
 //		em.persist(item);
 		em.getTransaction().commit();
-		System.out.println(item1.getImage3());
+		List<String> list = item1.getImage3();
+		for (String s : list) {
+			System.out.println(s);
+		}
 
 		em.close();
 		fac.close();
@@ -90,22 +93,22 @@ public class TestCollection {
 		EntityManagerFactory fac = Persistence.createEntityManagerFactory("com.gadfly1981.jpa.mysql");
 		EntityManager em = fac.createEntityManager();
 		
-//		Item item = new Item();
-//		Collection<String> collection = item.getImage2();
-//		collection.add("file1.jpg");
-//		collection.add("file2.jpg");
-//		collection.add("file3.jpg");
-//		collection.add("file1.jpg");
-//		
-//		em.getTransaction().begin();
-//		em.persist(item);
-//		em.getTransaction().commit();
+		Item item = new Item();
+		Collection<String> collection = item.getImage2();
+		collection.add("file1.jpg");
+		collection.add("file2.jpg");
+		collection.add("file3.jpg");
+		collection.add("file1.jpg");
 		
 		em.getTransaction().begin();
-		Item item = em.find(Item.class, 1L);
-		item.getImage2().remove("file2.jpg");
 		em.persist(item);
 		em.getTransaction().commit();
+		
+//		em.getTransaction().begin();
+//		Item item = em.find(Item.class, 1L);
+//		item.getImage2().remove("file2.jpg");
+//		em.persist(item);
+//		em.getTransaction().commit();
 //		System.out.println(item.getImage2());
 		
 		em.close();
@@ -116,20 +119,20 @@ public class TestCollection {
 		EntityManagerFactory fac = Persistence.createEntityManagerFactory("com.gadfly1981.jpa.mysql");
 		EntityManager em = fac.createEntityManager();
 		
-//		Item item = new Item();
-//		Set<String> set = item.getImage1();
-//		set.add("file1.jpg");
-//		set.add("file3.jpg");
-//		set.add("file2.jpg");
-//		
-//		em.getTransaction().begin();
-//		em.persist(item);
-//		em.getTransaction().commit();
+		Item item = new Item();
+		Set<String> set = item.getImage1();
+		set.add("file1.jpg");
+		set.add("file3.jpg");
+		set.add("file2.jpg");
 		
 		em.getTransaction().begin();
-		Item item = em.find(Item.class, 3L);
-		System.out.println(item.getImage1());
+		em.persist(item);
 		em.getTransaction().commit();
+		
+//		em.getTransaction().begin();
+//		Item item = em.find(Item.class, 3L);
+//		System.out.println(item.getImage1());
+//		em.getTransaction().commit();
 		
 		em.close();
 		fac.close();

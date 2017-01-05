@@ -87,14 +87,13 @@ public class Item {
 	protected Weight weight;
 	
 	@ElementCollection
-	@CollectionTable(
-		name = "image1",
-		joinColumns = @JoinColumn(name = "item_id")
-	)
-	@Column(name = "filename")
+//	@CollectionTable(
+//		name = "image1",
+//		joinColumns = @JoinColumn(name = "item_id")
+//	)
 //	@SortNatural
 //	@SortComparator(ReverseStringComparator.class)
-	@OrderBy("fileName desc")
+//	@OrderBy("fileName desc")
 	protected Set<String> image1 = new LinkedHashSet<String>();
 	
 	@ElementCollection
@@ -109,8 +108,14 @@ public class Item {
 	
 	@ElementCollection
 	@CollectionTable(name = "image3")
-	@OrderColumn
+//	@OrderColumn
+	@GenericGenerator(name = "gen_image3", strategy = "enhanced-sequence")
+	@CollectionId(
+		columns = @Column(name = "image_id"), 
+		type = @Type(type = "long"), 
+		generator = "gen_image3")
 	@Column(name = "filename")
+	@OrderBy("filename asc")
 	protected List<String> image3 = new ArrayList<>();
 
 	@ElementCollection
@@ -128,11 +133,11 @@ public class Item {
 	
 	@ElementCollection
 	@CollectionTable(name = "image6")
-	@GenericGenerator(name = "gen_image3", strategy = "enhanced-sequence")
+	@GenericGenerator(name = "gen_image6", strategy = "enhanced-sequence")
 	@CollectionId(
 		columns = @Column(name = "image_id"),
 		type = @Type(type = "long"),
-		generator = "gen_image3"
+		generator = "gen_image6"
 	)
 	protected Collection<Image> image6 = new ArrayList<>();
 	
