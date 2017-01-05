@@ -3,9 +3,11 @@ package caveatemptor.model;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -13,21 +15,23 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.Type;
 
@@ -94,6 +98,7 @@ public class Item {
 //	@SortNatural
 //	@SortComparator(ReverseStringComparator.class)
 //	@OrderBy("fileName desc")
+	@Transient
 	protected Set<String> image1 = new LinkedHashSet<String>();
 	
 	@ElementCollection
@@ -104,6 +109,7 @@ public class Item {
 //		type = @Type(type = "long"), 
 //		generator = "gen_image2")
 	@OrderBy("image2 asc")
+	@Transient
 	protected Collection<String> image2 = new ArrayList<>();
 	
 	@ElementCollection
@@ -116,12 +122,14 @@ public class Item {
 		generator = "gen_image3")
 	@Column(name = "filename")
 	@OrderBy("filename asc")
+	@Transient
 	protected List<String> image3 = new ArrayList<>();
 
 	@ElementCollection
 	@CollectionTable(name = "image4")
 	@MapKeyColumn(name = "filename")
 	@Column(name = "imagename")
+	@Transient
 	protected Map<String, String> image4 = new HashMap<>();
 	
 	@ElementCollection
@@ -129,6 +137,7 @@ public class Item {
 	@MapKeyColumn(name = "filename")
 	@Column(name = "imagename")
 	@SortComparator(ReverseStringComparator.class)
+	@Transient
 	protected SortedMap<String, String> image5 = new TreeMap<String, String>();
 	
 	@ElementCollection
@@ -139,12 +148,19 @@ public class Item {
 		type = @Type(type = "long"),
 		generator = "gen_image6"
 	)
+	@Transient
 	protected Collection<Image> image6 = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "image7")
 //	@MapKeyColumn(name = "filename1")
+	@Transient
 	protected Map<Filename, Image> image7 = new HashMap<>();
+	
+	@OneToMany(mappedBy = "item", 
+			   cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	protected Set<Bid> bids = new HashSet<>();
 	
 	public Item() {
 		super();
@@ -284,6 +300,20 @@ public class Item {
 
 	public void setImage7(Map<Filename, Image> image7) {
 		this.image7 = image7;
+	}
+
+	public Set<Bid> getBids() {
+		return bids;
+	}
+
+	public void setBids(Set<Bid> bids) {
+		this.bids = bids;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", image=" + Arrays.toString(image) + ", description=" + description + ", verified="
+				+ verified + "]";
 	}
 
 	public static class ReverseStringComparator implements Comparator<String> {

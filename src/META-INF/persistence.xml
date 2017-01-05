@@ -28,16 +28,17 @@
         
     <persistence-unit name="com.gadfly1981.jpa.mysql">
         <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
-        <class>model.User1</class>
+        <class>caveatemptor.model.Item</class>
+        <class>caveatemptor.model.Bid</class>
         
         <!-- 排除非配置文件，false扫描类路径，自动加载并ORM实体类,true不自动加，必须通过配置文件加 -->
-    	<exclude-unlisted-classes>false</exclude-unlisted-classes>
+    	<exclude-unlisted-classes>true</exclude-unlisted-classes>
     	
      	<!-- AUTO运行环境能用数据验证则用，CALLBACK必须用否则报错，NONE不用验证 -->
     	<validation-mode>AUTO</validation-mode>
 	    <properties>
 	    	<!-- none，不操作数据库DDL，create,始终创建数据库表或者其他相关对象，drop-and-create，先删后建，最后保留， drop，删除用于清理-->
-	    	<property name="javax.persistence.schema-generation.database.action" value="none"/>
+	    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 	   		<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"></property>  
 	        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test"></property>  
 	        <property name="hibernate.connection.username" value="scott"></property>  
