@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +25,11 @@ import javax.persistence.Lob;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.Type;
 
@@ -50,7 +48,7 @@ public class Item {
 	protected byte[] image;
 	
 	@Lob
-	@Column(name = "description", insertable = false, updatable = false) 
+	@Column(name = "description") 
 	protected String description;
 	
 	@Lob
@@ -157,10 +155,9 @@ public class Item {
 	@Transient
 	protected Map<Filename, Image> image7 = new HashMap<>();
 	
-	@OneToMany(mappedBy = "item", 
-			   cascade = CascadeType.ALL)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	protected Set<Bid> bids = new HashSet<>();
+	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+//	@OrderColumn
+	protected List<Bid> bids = new ArrayList<>();
 	
 	public Item() {
 		super();
@@ -302,11 +299,11 @@ public class Item {
 		this.image7 = image7;
 	}
 
-	public Set<Bid> getBids() {
+	public List<Bid> getBids() {
 		return bids;
 	}
 
-	public void setBids(Set<Bid> bids) {
+	public void setBids(List<Bid> bids) {
 		this.bids = bids;
 	}
 

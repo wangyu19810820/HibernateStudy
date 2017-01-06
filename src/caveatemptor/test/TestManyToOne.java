@@ -16,10 +16,14 @@ public class TestManyToOne {
 		Item item = new Item();
 		item.setDescription("abcd");
 		
-		Bid bid1 = new Bid(11.11, item);
+		Bid bid1 = new Bid();
+		bid1.setAmount(11.11);
+		bid1.setItem(item);
 		item.getBids().add(bid1);
 		
-		Bid bid2 = new Bid(22.22, item);
+		Bid bid2 = new Bid();
+		bid2.setAmount(22.22);
+		bid2.setItem(item);
 		item.getBids().add(bid2);
 		
 		em.getTransaction().begin();

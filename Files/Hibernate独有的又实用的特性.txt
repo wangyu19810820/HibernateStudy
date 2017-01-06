@@ -3,6 +3,7 @@
 3.属性注解@ColumnDefault添加默认值，@CreationTimestamp创建时间戳，@UpdateTimestamp更新时间戳
 4.@Type配置boolean型为T/F,Y/N的单个字符
 5.配置Collection和不排序的List的时候，可以用@CollectionId添加主键，以保证SQL表的关系完整性
+6.GenericGenerator生成主键的时候，采用策略是foreign，利用外键作为自己的主键
 
 
 

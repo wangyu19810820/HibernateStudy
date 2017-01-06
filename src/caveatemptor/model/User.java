@@ -6,14 +6,18 @@ import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import caveatemptor.converter.ZipcodeConverter;
@@ -28,11 +32,20 @@ public class User implements Serializable {
 	@GeneratedValue()
 	protected Long id;
 	
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
+//	@JoinColumn(unique = true)
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_address",
+			   joinColumns = @JoinColumn(name = "user_id"),
+			   inverseJoinColumns = @JoinColumn(name = "address_id", nullable = false, unique = true))
+	protected AddressEntity addressEntity;
+	
 	@AttributeOverride(name = "city.name", column = @Column(name = "name"))
-	@Convert(converter = ZipcodeConverter.class, 
-			 attributeName = "city.zipcode",
-			 disableConversion = false)
-	protected Address homeAddress;
+//	@Convert(converter = ZipcodeConverter.class, 
+//			 attributeName = "city.zipcode",
+//			 disableConversion = false)
+	protected transient Address homeAddress;
 	
 //	@Embedded	// ¿ÉÑ¡
 	@AttributeOverrides({
@@ -47,10 +60,10 @@ public class User implements Serializable {
 	protected Address billingAddress;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	protected BillingDetails defaultBilling;
+	protected transient BillingDetails defaultBilling;
 	
 	@OneToMany(mappedBy = "user")
-	protected Set<BillingDetails>billingDetails = new HashSet<>();
+	protected transient Set<BillingDetails>billingDetails = new HashSet<>();
 
 	public User() {
 		super();
@@ -60,13 +73,13 @@ public class User implements Serializable {
 		return id;
 	}
 
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
-	}
+//	public Address getHomeAddress() {
+//		return homeAddress;
+//	}
+//
+//	public void setHomeAddress(Address homeAddress) {
+//		this.homeAddress = homeAddress;
+//	}
 
 	public Address getBillingAddress() {
 		return billingAddress;
@@ -99,10 +112,30 @@ public class User implements Serializable {
 		}
 	}
 	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", homeAddress=" + homeAddress + ", billingAddress=" + billingAddress
-				+ ", defaultBilling=" + defaultBilling + "]";
+	public Address getHomeAddress() {
+		return homeAddress;
 	}
+
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+
+	public AddressEntity getAddressEntity() {
+		return addressEntity;
+	}
+
+	public void setAddressEntity(AddressEntity addressEntity) {
+		this.addressEntity = addressEntity;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", homeAddress=" + homeAddress + ", billingAddress=" + billingAddress
+//				+ ", defaultBilling=" + defaultBilling + "]";
+//	}
 
 }

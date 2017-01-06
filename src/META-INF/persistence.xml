@@ -28,9 +28,15 @@
         
     <persistence-unit name="com.gadfly1981.jpa.mysql">
         <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
-        <class>caveatemptor.model.Item</class>
-        <class>caveatemptor.model.Bid</class>
-        
+        <class>caveatemptor.model.AddressEntity</class>
+        <class>caveatemptor.model.Shipment</class>
+        <class>caveatemptor.model.User</class>
+        <class>caveatemptor.model.Address</class>
+        <class>caveatemptor.model.Zipcode</class>
+        <class>caveatemptor.model.City</class>
+        <class>caveatemptor.model.GermanZipcode</class>
+        <class>caveatemptor.model.SwissZipcode</class>
+         
         <!-- 排除非配置文件，false扫描类路径，自动加载并ORM实体类,true不自动加，必须通过配置文件加 -->
     	<exclude-unlisted-classes>true</exclude-unlisted-classes>
     	
