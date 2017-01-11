@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
@@ -18,10 +19,10 @@ public class Bid {
 	protected double amount;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name="item_id", insertable = false, updatable = false)
-	@JoinTable(
-		name = "item_bid"
-	)
+	@JoinColumn(name="item_id", insertable = true, updatable = false)
+//	@JoinTable(
+//		name = "item_bid"
+//	)
 	protected Item item;
 
 	public Bid() {

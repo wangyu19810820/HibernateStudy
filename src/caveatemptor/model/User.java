@@ -39,7 +39,7 @@ public class User implements Serializable {
 	@JoinTable(name = "user_address",
 			   joinColumns = @JoinColumn(name = "user_id"),
 			   inverseJoinColumns = @JoinColumn(name = "address_id", nullable = false, unique = true))
-	protected AddressEntity addressEntity;
+	protected transient AddressEntity addressEntity;
 	
 	@AttributeOverride(name = "city.name", column = @Column(name = "name"))
 //	@Convert(converter = ZipcodeConverter.class, 
@@ -57,7 +57,7 @@ public class User implements Serializable {
 //	@Convert(converter = ZipcodeConverter.class, 
 //			 attributeName = "city.zipcode",
 //			 disableConversion = false)
-	protected Address billingAddress;
+	protected transient Address billingAddress;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	protected transient BillingDetails defaultBilling;

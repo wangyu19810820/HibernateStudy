@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.MapKey;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionId;
@@ -157,7 +159,21 @@ public class Item {
 	
 	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
 //	@OrderColumn
+	@Transient
 	protected List<Bid> bids = new ArrayList<>();
+	
+	@ManyToMany(mappedBy = "items", cascade = CascadeType.PERSIST)
+	@Transient
+	protected List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "item")
+	@Transient
+	protected Set<CategorizedItem> categorizedItems = new HashSet<>();
+	
+	@MapKey(name = "id")
+	@OneToMany(mappedBy = "item")
+	@Transient
+	protected Map<Long, Bid> bidsMap = new HashMap<>();
 	
 	public Item() {
 		super();
@@ -305,6 +321,30 @@ public class Item {
 
 	public void setBids(List<Bid> bids) {
 		this.bids = bids;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
+	public Set<CategorizedItem> getCategorizedItems() {
+		return categorizedItems;
+	}
+
+	public void setCategorizedItems(Set<CategorizedItem> categorizedItems) {
+		this.categorizedItems = categorizedItems;
+	}
+
+	public Map<Long, Bid> getBidsMap() {
+		return bidsMap;
+	}
+
+	public void setBidsMap(Map<Long, Bid> bidsMap) {
+		this.bidsMap = bidsMap;
 	}
 
 	@Override

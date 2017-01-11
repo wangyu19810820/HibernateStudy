@@ -14,7 +14,7 @@
     	<validation-mode>AUTO</validation-mode>
 	    <properties>
 	    	<!-- none，不操作数据库DDL，create,始终创建数据库表或者其他相关对象，drop-and-create，先删后建，最后保留， drop，删除用于清理-->
-	    	<property name="javax.persistence.schema-generation.database.action" value="none"/>
+	    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 	   		<property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"></property>  
 	        <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>  
 	        <property name="hibernate.connection.username" value="scott"></property>  
@@ -28,14 +28,9 @@
         
     <persistence-unit name="com.gadfly1981.jpa.mysql">
         <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
-        <class>caveatemptor.model.AddressEntity</class>
-        <class>caveatemptor.model.Shipment</class>
-        <class>caveatemptor.model.User</class>
-        <class>caveatemptor.model.Address</class>
-        <class>caveatemptor.model.Zipcode</class>
-        <class>caveatemptor.model.City</class>
-        <class>caveatemptor.model.GermanZipcode</class>
-        <class>caveatemptor.model.SwissZipcode</class>
+         <class>leave.Item</class>
+         <class>leave.User</class>
+         <class>leave.Department</class>
          
         <!-- 排除非配置文件，false扫描类路径，自动加载并ORM实体类,true不自动加，必须通过配置文件加 -->
     	<exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -60,7 +55,21 @@
 	        
 	        <!-- 类名转换成表名，通用策略 -->
 	        <property name="hibernate.physical_naming_strategy" value="tool.CENamingStrategy" />
-
+	        
+	        <!-- 切换到多行提取器 -->
+	        <property name="hibernate.hbm2ddl.import_files_sql_extractor" 
+	        		value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
+			
+			<!-- 何时执行创建脚本，先执行自定义脚本 metadata, script, metadata-than-script, script-then-metadata -->
+			<property name="javax.persistence.schema-generation.create-source" value="script-then-metadata" />
+			
+			<!-- 何时执行删除旧数据脚本，后执行自定义脚本 metadata, script, metadata-than-script, script-then-metadata -->
+			<property name="javax.persistence.schema-generation.drop-source" value="script" />
+			
+			<property name="javax.persistence.schema-generation.create-script-source" value="leave/1.sql"/>
+			<property name="javax.persistence.schema-generation.drop-script-source" value="leave/2.sql"/>
+			<property name="javax.persistence.sql-load-script-source" value="leave/3.sql"/>
+			
 	    </properties>
      </persistence-unit>
 </persistence>
