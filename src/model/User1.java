@@ -5,18 +5,16 @@ import java.time.LocalDateTime;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -24,6 +22,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity(name = "User1")
 @Table(name = "USER1")
+//@DynamicUpdate
 public class User1 {
 	
 //	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -31,7 +30,8 @@ public class User1 {
 	@Id
 	@SequenceGenerator(name="increment", sequenceName="SCOTT.SEQ_USER1" ,allocationSize = 1)
 	@GeneratedValue(generator="increment", strategy=GenerationType.SEQUENCE)
-	private int id;
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	@Basic(optional = false)
 //	@ColumnTransformer(
@@ -65,11 +65,11 @@ public class User1 {
 	public User1() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -138,6 +138,32 @@ public class User1 {
 		return "User1 [id=" + id + ", username=" + username + ", password=" + password + ", namePwd=" + namePwd
 				+ ", birthday=" + birthday + ", insertTime=" + insertTime + ", updateTime=" + updateTime
 				+ ", personType=" + personType + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof User1)) {
+			return false;
+		}
+		User1 other = (User1) obj;
+		if (getUsername() == null) {
+			if (other.getUsername() != null)
+				return false;
+		} else if (!getUsername().equals(other.getUsername()))
+			return false;
+		return true;
 	}
 
 }
