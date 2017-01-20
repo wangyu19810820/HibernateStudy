@@ -13,7 +13,7 @@ import org.hibernate.mapping.Set;
 public class Test {
 
 	public static void main(String[] args) {
-		c();
+		add();
 	}
 	
 	public static void c() {
@@ -23,7 +23,8 @@ public class Test {
 		
 //		em.getReference(User.class, 1L);
 		Item item = em.find(Item.class, 2L);
-		System.out.println(item.getBid());
+		System.out.println("OK");
+		System.out.println(item.getSeller().getClass());
 		
 		em.getTransaction().commit();
 		em.close();
@@ -126,6 +127,12 @@ public class Test {
 //		bid.setItem(item);
 //		bid.setUser(user1);
 		em.persist(bid);
+		
+		Bid bid1 = new Bid(new BigDecimal("11.11"));
+		item.getBid().add(bid1);
+//		bid.setItem(item);
+//		bid.setUser(user1);
+		em.persist(bid1);
 		
 		em.getTransaction().commit();
 		em.close();

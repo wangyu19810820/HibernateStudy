@@ -72,7 +72,12 @@
 			<property name="javax.persistence.schema-generation.drop-script-source" value="leave/2.sql"/>
 			<property name="javax.persistence.sql-load-script-source" value="leave/3.sql"/>
 			
+			<!-- 对象由托管状态转为分离状态时，主键是否被重置 -->
 			<property name="hibernate.use_identifier_rollback" value="false"/>
+			
+			<!-- 外连接深度，在多少个对象间传递 -->
+			<property name="hibernate.max_fetch_depth" value="10" />
 	    </properties>
      </persistence-unit>
 </persistence>
+

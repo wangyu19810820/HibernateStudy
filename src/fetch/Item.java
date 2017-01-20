@@ -17,9 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OptimisticLockType;
@@ -42,17 +43,20 @@ public class Item {
 	protected String desc1;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@LazyToOne(LazyToOneOption.NO_PROXY)
+//	@LazyToOne(LazyToOneOption.NO_PROXY)
+	@BatchSize(size = 2)
+//	@Fetch(FetchMode.SELECT)
 	protected User seller;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "item_image_1")
-	@LazyCollection(LazyCollectionOption.EXTRA)
+//	@LazyCollection(LazyCollectionOption.EXTRA)
+	@BatchSize(size = 2)
 	protected Set<String> imageSet = new HashSet<>();
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "item_image_2")
-	@LazyCollection(LazyCollectionOption.FALSE)
+//	@LazyCollection(LazyCollectionOption.FALSE)
 	protected List<String> imageList = new ArrayList<>();
 
 //	@ManyToOne
@@ -62,8 +66,11 @@ public class Item {
 	@Version
 	protected long version;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
 	@JoinColumn(name = "item_id")
+	@LazyToOne(LazyToOneOption.FALSE)
+//	@BatchSize(size = 13)
+	@Fetch(FetchMode.SUBSELECT)
 	protected List<Bid> bid = new ArrayList<>();
 
 	public Item() {
