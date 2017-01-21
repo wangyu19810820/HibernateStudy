@@ -8,7 +8,29 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedSubgraph;
 import javax.validation.constraints.NotNull;
+
+@NamedEntityGraph(
+	name = "BidItem",
+	attributeNodes = {
+		@NamedAttributeNode(
+			value = "item",
+			subgraph = "ItemSellerBid"
+		)
+	},
+	subgraphs = {
+		@NamedSubgraph(
+			name = "ItemSellerBid",
+			attributeNodes = {
+				@NamedAttributeNode("seller"),
+				@NamedAttributeNode("bid")
+			}
+		)
+	}
+)
 
 @Entity
 public class Bid {

@@ -30,6 +30,7 @@
         
     <persistence-unit name="com.gadfly1981.jpa.mysql">
         <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
+        <class>fetch</class>
         <class>fetch.Item</class>
         <class>fetch.User</class>
         <class>fetch.Bid</class>

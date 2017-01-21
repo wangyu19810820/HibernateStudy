@@ -14,6 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
@@ -26,11 +29,23 @@ import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
+@NamedEntityGraphs({
+	@NamedEntityGraph(
+		name = "ItemSeller",
+		attributeNodes = {
+			@NamedAttributeNode("seller")
+		}
+	)
+})
+
 @Entity
 @OptimisticLocking(type = OptimisticLockType.ALL)
 @DynamicUpdate
 public class Item {
 
+	public static final String PROFILE_JOIN_SELLER = "PROFILE_JOIN_SELLER";
+	public static final String PROFILE_JOIN_BIDS = "PROFILE_JOIN_BIDS";
+	
 	@Id
 	@GeneratedValue
 	protected Long id;
@@ -66,11 +81,11 @@ public class Item {
 	@Version
 	protected long version;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "item_id")
-	@LazyToOne(LazyToOneOption.FALSE)
-//	@BatchSize(size = 13)
-	@Fetch(FetchMode.SUBSELECT)
+//	@LazyToOne(LazyToOneOption.FALSE)
+	@BatchSize(size = 13)
+//	@Fetch(FetchMode.SUBSELECT)
 	protected List<Bid> bid = new ArrayList<>();
 
 	public Item() {
