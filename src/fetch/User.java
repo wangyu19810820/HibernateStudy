@@ -4,12 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.BatchSize;
+import filtering.Auditable;
 
 @Entity
+//@EntityListeners(PersistEntityListener2.class)
 //@Proxy(lazy = false)
 //@BatchSize(size = 2)
-public class User {
+public class User{
 
 	@Id
 	@GeneratedValue
@@ -46,4 +47,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+//	@PostLoad
+//	public void postLoad() {
+//		System.out.println("User-PostLoad:" + this);
+//	}
+
 }

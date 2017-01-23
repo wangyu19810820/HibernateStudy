@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="validate"/>
 	<classpathentry kind="src" path="mysql"/>
 	<classpathentry kind="src" path="btm"/>
+	<classpathentry kind="src" path="envers"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="hibernatejar/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="hibernatejar/cdi-api-1.1.jar"/>
@@ -32,5 +33,6 @@
 	<classpathentry kind="lib" path="validate/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="mysql/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="lib" path="btm/btm-2.1.4.jar"/>
+	<classpathentry kind="lib" path="envers/hibernate-envers-5.2.6.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

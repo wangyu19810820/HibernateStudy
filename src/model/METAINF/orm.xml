@@ -5,11 +5,20 @@
                     http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
 
 	<persistence-unit-metadata>
-		<xml-mapping-metadata-complete/>
+		<!-- <xml-mapping-metadata-complete/> -->
 		<persistence-unit-defaults>
 			<delimited-identifiers/>
+           	<cascade-persist/>
+           	<!-- 
+           	<entity-listeners>
+           		<entity-listener class="filtering.PersistEntityListener1"></entity-listener>
+           	</entity-listeners>
+           	 -->
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
+	
+
+<!-- 
 	<entity class="model.User1" access="PROPERTY">
 		<attributes>
 			<id name="id">
@@ -24,4 +33,17 @@
 			</basic>
 		</attributes>
 	</entity>
+	<entity class="model.Address" access="PROPERTY">
+		<attributes>
+			<id name="id">
+				<generated-value generator="generator" strategy="SEQUENCE"/>
+            	<sequence-generator name="generator" sequence-name="SCOTT.SEQ_USER1" allocation-size="1"/>
+			</id>
+			<basic name="city">
+				<column name="city" />
+			</basic>
+			<basic name="street"></basic>
+		</attributes>
+	</entity>
+-->
 </entity-mappings>

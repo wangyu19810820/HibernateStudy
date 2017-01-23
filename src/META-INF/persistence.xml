@@ -30,6 +30,7 @@
         
     <persistence-unit name="com.gadfly1981.jpa.mysql">
         <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
+        <mapping-file>model/METAINF/orm.xml</mapping-file>
         <class>fetch</class>
         <class>fetch.Item</class>
         <class>fetch.User</class>
@@ -78,7 +79,16 @@
 			
 			<!-- 外连接深度，在多少个对象间传递 -->
 			<property name="hibernate.max_fetch_depth" value="10" />
+			
+			<!-- load事件监听器 -->
+			<property name="hibernate.ejb.event.load" value="filtering.MyLoadEventListener" />
+			
+			<!-- 默认拦截器 -->
+			<property name="hibernate.ejb.interceptor" value="filtering.AuditLogInterceptor" />
 	    </properties>
      </persistence-unit>
 </persistence>
+
+
+
 

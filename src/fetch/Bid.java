@@ -2,6 +2,7 @@ package fetch;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,7 +47,7 @@ public class Bid {
 //    @JoinColumn(name = "user_id")
 //    protected User user;
 //    
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     protected Item item;
 

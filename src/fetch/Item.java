@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,12 +24,11 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
+
+import filtering.Auditable;
+import filtering.PersistEntityListener1;
 
 @NamedEntityGraphs({
 	@NamedEntityGraph(
@@ -39,9 +40,11 @@ import org.hibernate.annotations.OptimisticLocking;
 })
 
 @Entity
+@EntityListeners(PersistEntityListener1.class)
 @OptimisticLocking(type = OptimisticLockType.ALL)
 @DynamicUpdate
-public class Item {
+
+public class Item{
 
 	public static final String PROFILE_JOIN_SELLER = "PROFILE_JOIN_SELLER";
 	public static final String PROFILE_JOIN_BIDS = "PROFILE_JOIN_BIDS";
@@ -57,7 +60,7 @@ public class Item {
 
 	protected String desc1;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //	@LazyToOne(LazyToOneOption.NO_PROXY)
 	@BatchSize(size = 2)
 //	@Fetch(FetchMode.SELECT)
@@ -81,7 +84,7 @@ public class Item {
 	@Version
 	protected long version;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "item_id")
 //	@LazyToOne(LazyToOneOption.FALSE)
 	@BatchSize(size = 13)

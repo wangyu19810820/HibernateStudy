@@ -1,6 +1,8 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,7 +16,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -60,6 +61,8 @@ public class User1 {
 	
 //	@Enumerated(EnumType.STRING)
 	private PersonType personType;
+	
+	private List<Address> addressList = new ArrayList<Address>();
 
 //	private Date 
 	public User1() {
@@ -131,6 +134,14 @@ public class User1 {
 
 	public void setPersonType(PersonType personType) {
 		this.personType = personType;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 	@Override

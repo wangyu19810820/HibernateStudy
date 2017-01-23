@@ -1,6 +1,7 @@
 package fetch;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,7 +9,9 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUtil;
 
 import org.hibernate.Hibernate;
-import org.hibernate.mapping.Set;
+import org.hibernate.jpa.AvailableSettings;
+
+import filtering.AuditLogInterceptor;
 
 public class Test {
 
@@ -109,7 +112,7 @@ public class Test {
 		User user1 = new User();
 		user1.setName("admin");
 		user1.setPassword("admin");
-		em.persist(user1);
+//		em.persist(user1);
 		
 		Item item = new Item();
 		item.setName("item1");
@@ -122,17 +125,17 @@ public class Test {
 		item.getImageList().add("image4");
 		em.persist(item);
 		
-		Bid bid = new Bid(new BigDecimal("13.33"));
-		item.getBid().add(bid);
+//		Bid bid = new Bid(new BigDecimal("13.33"));
+//		item.getBid().add(bid);
 //		bid.setItem(item);
 //		bid.setUser(user1);
-		em.persist(bid);
+//		em.persist(bid);
 		
-		Bid bid1 = new Bid(new BigDecimal("11.11"));
-		item.getBid().add(bid1);
-//		bid.setItem(item);
-//		bid.setUser(user1);
-		em.persist(bid1);
+//		Bid bid1 = new Bid(new BigDecimal("11.11"));
+//		item.getBid().add(bid1);
+////		bid.setItem(item);
+////		bid.setUser(user1);
+//		em.persist(bid1);
 		
 		em.getTransaction().commit();
 		em.close();
