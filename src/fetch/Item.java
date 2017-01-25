@@ -24,10 +24,10 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
-import filtering.Auditable;
 import filtering.PersistEntityListener1;
 
 @NamedEntityGraphs({
@@ -43,8 +43,10 @@ import filtering.PersistEntityListener1;
 @EntityListeners(PersistEntityListener1.class)
 @OptimisticLocking(type = OptimisticLockType.ALL)
 @DynamicUpdate
-
-public class Item{
+//@Audited
+@Filter(name = "limitByUserRank", 
+		condition = ":currentUserRank >= (select u.rank from ce_user u where u.id = seller_id)")
+public class Item {
 
 	public static final String PROFILE_JOIN_SELLER = "PROFILE_JOIN_SELLER";
 	public static final String PROFILE_JOIN_BIDS = "PROFILE_JOIN_BIDS";
@@ -173,6 +175,12 @@ public class Item{
 
 	public void setImageList(List<String> imageList) {
 		this.imageList = imageList;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", name=" + name + ", price=" + price + ", desc1=" + desc1 + ", seller=" + seller
+				+ "]";
 	}
 
 }

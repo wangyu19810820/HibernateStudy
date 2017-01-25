@@ -32,9 +32,11 @@
         <!-- <mapping-file>model/METAINF/orm.xml</mapping-file> -->
         <mapping-file>model/METAINF/orm.xml</mapping-file>
         <class>fetch</class>
+        <class>filtering</class>
         <class>fetch.Item</class>
         <class>fetch.User</class>
         <class>fetch.Bid</class>
+        <class>fetch.Category</class>
         
         <!-- 排除非配置文件，false扫描类路径，自动加载并ORM实体类,true不自动加，必须通过配置文件加 -->
     	<exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -80,7 +82,7 @@
 			<!-- 外连接深度，在多少个对象间传递 -->
 			<property name="hibernate.max_fetch_depth" value="10" />
 			
-			<!-- load事件监听器 -->
+			<!-- load事件侦听器,也可以再配置一些新增修改删除侦听器 -->
 			<property name="hibernate.ejb.event.load" value="filtering.MyLoadEventListener" />
 			
 			<!-- 默认拦截器 -->

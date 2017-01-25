@@ -14,6 +14,8 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedSubgraph;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+
 @NamedEntityGraph(
 	name = "BidItem",
 	attributeNodes = {
@@ -34,6 +36,7 @@ import javax.validation.constraints.NotNull;
 )
 
 @Entity
+//@Audited
 public class Bid {
 
 	@Id

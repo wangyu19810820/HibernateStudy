@@ -22,13 +22,16 @@ public class Test {
 		em.getTransaction().begin();
 		
 		System.out.println("1");
-		User user1 = em.find(User.class, 1L);
-		user1.setName("44");
+		User user1 = em.find(User.class, 2L);
+		user1.setName("66");
 		
-		Item item2 = em.find(Item.class, 5L);
-		item2.setName("44");
+		Item item2 = em.find(Item.class, 1L);
+		item2.setName("66");
 //		System.out.println("3");
 //		em.createQuery("from User").getResultList();
+		
+		em.remove(user1);
+		em.remove(item2);
 		
 		em.getTransaction().commit();
 		em.close();
